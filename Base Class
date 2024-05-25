@@ -1,0 +1,54 @@
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+import time
+
+
+def send_whatsapp_message(contact_name, message):
+    # Specify the path to your chromedriver executable
+    chromedriver_path = 'path/to/chromedriver'
+
+    # Start Chrome browser
+    driver = webdriver.Chrome()
+
+    # Open WhatsApp Web
+    driver.get("https://web.whatsapp.com/")
+
+    # Wait for the user to scan the QR code manually
+    input("Scan the QR code and press Enter to continue...")
+
+    # Locate the contact search input field
+    search_box = driver.find_element("xpath", "//div[@contenteditable='true']")
+
+    # Type the contact name
+    search_box.send_keys(contact_name)
+
+    # Wait for a while to let the contact appear in the search results
+    time.sleep(2)
+
+    # Press Enter to open the chat
+    search_box.send_keys(Keys.RETURN)
+
+    # Locate the message input field
+    message_box = driver.find_element("xpath", "//div[@contenteditable='true']")
+
+    # Type the message
+    message_box.send_keys(message)
+
+    # Press Enter to send the message
+    message_box.send_keys(Keys.RETURN)
+
+    # Close the browser after sending the message
+    driver.quit()
+#
+#
+# # Example usage
+# # contact_name = "John Doe"  # Replace with the name of your contact
+# # message = "Hello, this is a test message from Python!"  # Replace with your desired message
+#
+# # send_whatsapp_message(contact_name, message)
+
+
+
+import pywhatkit
+pywhatkit.sendwhatmsg('+91-9xxxxxxxxx', "Hi this is automated message", 10, 38)
+
